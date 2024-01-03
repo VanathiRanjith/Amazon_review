@@ -33,3 +33,4 @@ if __name__ == '__main__':
 
     #print(aggregated_results.collect())
     #& C:/Users/India/.virtualenvs/Amazonbooksreviewcode-FfKGQYjC/Scripts/python.exe e:/AmazonBooksReview/Amazonbooksreviewcode/application_main.py LOCAL
+    #vanathi
