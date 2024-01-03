@@ -4,7 +4,7 @@ from lib.DataManipulation import Amazon_df, Amazon_distinct, categories_df
 from pyspark.sql.functions import *
 from lib.ConfigReader import get_app_config
 import os
-
+from exceptiongroup import BaseExceptionGroup
 
 def test_ratings_df(spark):
     ratings_count=ratings_df(spark,"LOCAL").count()
