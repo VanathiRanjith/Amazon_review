@@ -14,13 +14,13 @@ pipeline {
             }
         }
 
-          stage('Test') {
+        stage('Test') {
             steps {
                sh '/bitnami/jenkins/home/.local/bin/pipenv run pytest'
             }
         }
 
-         stage('Package') {
+        stage('Package') {
             steps {
                sh 'zip -r sample.zip .'
             }
