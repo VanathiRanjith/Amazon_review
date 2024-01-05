@@ -2,35 +2,50 @@ pipeline {
     agent any
 
     environment {
-        LABS = credentials('labcreds')
+        LABS = credentials('labcreds') // Ensure 'labcreds' is properly set in Jenkins credentials
     }
 
     stages {
-        stage('Build') {
+        stage('Setup') {
             steps {
-               sh 'pip3 install --user pipenv'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv install'
+                // Ensure pipenv is installed; consider having this as a prerequisite on the agent.
+                sh 'pip3 install --user pipenv'
+            }
+        }
+
+        stage('Clean Environment') {
+            steps {
+                // Remove any previous pipenv environment safely.
+                sh 'pipenv --rm || true' // Using 'true' to ensure this command doesn't cause the build to fail
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Install dependencies from Pipfile
+                sh 'pipenv install'
             }
         }
 
         stage('Test') {
             steps {
-               sh '/bitnami/jenkins/home/.local/bin/pipenv run pytest'
+                // Run tests using pipenv
+                sh 'pipenv run pytest'
             }
         }
 
         stage('Package') {
             steps {
-               sh 'zip -r sample.zip .'
+                // Package the application
+                sh 'zip -r sample.zip .'
             }
         }
         
         stage('Deploy') {
             steps {
-               sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g02.itversity.com:/home/itv010102/sample'
+                // Deploy to remote server; ensure LABS_PSW and LABS_USR are set in 'labcreds'
+                sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g02.itversity.com:/home/itv010102/sample'
             }
         }
-	
     }
 }
