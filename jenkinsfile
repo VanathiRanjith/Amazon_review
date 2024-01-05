@@ -9,7 +9,7 @@ pipeline {
         stage('Setup') {
             steps {
                 // Ensure pipenv is installed; consider having this as a prerequisite on the agent.
-                sh 'pip3 install --user home/ranjee1691/.local/bin/pipenv'
+                sh 'pip3 install --user pipenv'
             }
         }
 
