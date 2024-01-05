@@ -22,8 +22,11 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                // Install dependencies from Pipfile
-                sh 'pipenv install'
+                sh 'pip3 install --upgrade pip virtualenv pipenv' // Ensure latest versions
+                sh 'pipenv --version' // Print pipenv version for debugging
+                sh 'virtualenv --version' // Print virtualenv version for debugging
+                sh 'python3 --version' // Print Python version for debugging
+                sh 'pipenv install'  // Attempt to install dependencies
             }
         }
 
