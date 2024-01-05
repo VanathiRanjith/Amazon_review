@@ -47,7 +47,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Deploy to remote server; ensure LABS_PSW and LABS_USR are set in 'labcreds'
-                sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g02.itversity.com:/home/itv010102/sample'
+                sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g02.itversity.com:/home/itv010102/sample1'
             }
         }
     }
